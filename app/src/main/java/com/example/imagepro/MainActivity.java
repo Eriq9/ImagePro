@@ -10,8 +10,6 @@ import android.widget.Button;
 
 import org.opencv.android.OpenCVLoader;
 
-import java.io.IOException;
-
 public class MainActivity extends AppCompatActivity {
     static {
         if(OpenCVLoader.initDebug()){
@@ -22,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private Button camera_button;
+    Button RealTimeData;
+    Button Stored;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,18 +29,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        // select device and run
-        // we successfully loaded model
-        // before next tutorial
-        // as we are going to predict in Camera Activity
-        // Next tutorial will be about predicting using Interpreter
 
+        RealTimeData=findViewById(R.id.btnRealTime);
+        Stored = (Button)findViewById(R.id.btnStored);
 
-        camera_button=findViewById(R.id.camera_button);
-        camera_button.setOnClickListener(new View.OnClickListener() {
+        RealTimeData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+            }
+        });
+
+
+        Stored.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+
+                Intent StoredIntent = new Intent (MainActivity.this, StoredActivity.class);
+
+                startActivityForResult(StoredIntent, 101);
+
             }
         });
 
